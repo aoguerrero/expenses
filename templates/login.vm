@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/files/?path=style.css">
+    <title></title>
+</head>
+<body>
+<main>
+    <form action="/login/validate" method="post">
+        <div class="form">
+            <div class="form_row">
+                <div class="form_el">
+                    <label for="username">Username:</label>
+                </div>
+                <div class="form_el">
+                    <input type="text" id="username" name="username"/>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="form_el">
+                    <label for="username">Password:</label>
+                </div>
+                <div class="form_el">
+                    <input type="password" id="password" name="password"/>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="form_el">
+                    <input type="submit" value="Login"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
+</body>
+</html>

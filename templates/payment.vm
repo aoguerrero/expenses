@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/files/?path=style.css">
+    <title>Payment</title>
+</head>
+<body>
+<main>
+    <h1>Payment</h1>
+    <form action="/payments/save" method="post">
+        <input type="hidden" id="expense_id" name="expense_id" value="$expenseId"/>
+        <div class="form">
+            <div class="form_row">
+                <div class="form_el">
+                    <label>Expense:</label>
+                </div>
+                <div class="form_el">
+                    <span>${expenseDescription}</span>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="form_el">
+                    <label for="payment_value">Amount:</label>
+                </div>
+                <div class="form_el">
+                    <input type="number" id="payment_value" name="payment_value" min="1" max="99999999"
+                           autocomplete="off"
+                           required/>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="form_el">
+                    <label for="payment_date">Date (dd/mm/yyyy):</label>
+                </div>
+                <div class="form_el">
+                    <input type="text" id="payment_date" name="payment_date" autocomplete="off"
+                           pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}" required value="$paymentDate"/>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="form_el">
+                    <input type="submit" value="Save"/>
+                    <a href="/expenses/list">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
+</body>
+</html>

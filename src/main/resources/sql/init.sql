@@ -1,0 +1,16 @@
+DROP ALL OBJECTS;
+
+CREATE TABLE expenses (
+id IDENTITY PRIMARY KEY, 
+name_user VARCHAR(25) NOT NULL, 
+day_number INT NOT NULL, 
+description VARCHAR(100) NOT NULL, 
+base_value NUMBER NOT NULL,
+valid_from TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+valid_to TIMESTAMP);
+
+CREATE TABLE payments (
+id IDENTITY PRIMARY KEY, 
+id_expense BIGINT,
+payment_date TIMESTAMP NOT NULL,
+payment_value NUMBER NOT NULL);

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/files/?path=style.css">
+    <title>Expense</title>
+</head>
+<body>
+<main>
+    <h1>Expense</h1>
+    <form action="/expenses/save" method="post">
+#if(!$newExpense)
+        <input type="hidden" id="id" name="id" value="$rExpense.id"/>
+#end
+        <div class="form">
+            <div class="form_row">
+                <div class="form_el">
+                    <label for="day_number">Day Number:</label>
+                </div>
+                <div class="form_el">
+                    <input type="text" id="day_number" name="day_number" autocomplete="off" required value="$rExpense.dayNumber"/>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="form_el">
+                    <label for="description">Description:</label>
+                </div>
+                <div class="form_el">
+                    <input type="text" id="description" name="description" autocomplete="off" required value="$rExpense.description"/>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="form_el">
+                    <label for="base_value">Amount:</label>
+                </div>
+                <div class="form_el">
+                    <input type="number" id="base_value" name="base_value" min="1" autocomplete="off" required value="$rExpense.baseValue"/>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="form_el">
+                    <label for="valid_from">Valid From (dd/mm/yyyy):</label>
+                </div>
+                <div class="form_el">
+                    <input type="text" id="valid_from" name="valid_from" autocomplete="off"
+                           pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}" required value="$CustomFormatter.formatDate($rExpense.validFrom)"/>
+                </div>
+            </div>
+#if(!$newExpense)
+            <div class="form_row">
+                <div class="form_el">
+                    <label for="valid_to">Valid To (dd/mm/yyyy):</label>
+                </div>
+                <div class="form_el">
+                    <input type="text" id="valid_to" name="valid_to" autocomplete="off"
+                           pattern="([0-9]{2}\/[0-9]{2}\/[0-9]{4})|" value="$CustomFormatter.formatDate($rExpense.validTo)"/>
+                </div>
+            </div>
+#end
+            <div class="form_row">
+                <div class="form_el">
+                    <input type="submit" value="Save"/>
+                    <a href="/expenses/list">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
+</body>
+</html>
