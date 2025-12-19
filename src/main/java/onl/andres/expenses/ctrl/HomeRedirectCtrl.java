@@ -10,13 +10,10 @@ import javax.sql.DataSource;
 
 public class HomeRedirectCtrl extends RedirectController {
 
-    private DataSource dataSource;
-    private DataSource memDataSource;
+    private AuthService authService;
 
     @Override
     public int execute(HttpRequest request) {
-        TSession TSession = new TSession(dataSource);
-        AuthService authService = new AuthService(memDataSource);
         try {
             authService.getSessionId(request);
         } catch (ServiceException.Unauthorized seu) {
@@ -25,11 +22,7 @@ public class HomeRedirectCtrl extends RedirectController {
         return 0;
     }
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    public void setMemDataSource(DataSource memDataSource) {
-        this.memDataSource = memDataSource;
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
     }
 }

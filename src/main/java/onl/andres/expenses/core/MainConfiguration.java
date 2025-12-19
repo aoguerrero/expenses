@@ -1,5 +1,6 @@
 package onl.andres.expenses.core;
 
+import onl.andres.expenses.auth.AuthService;
 import onl.andres.expenses.ctrl.*;
 import onl.andres.expenses.db.SchemaInitializer;
 import onl.andres.expenses.db.records.RUser;
@@ -48,56 +49,56 @@ public class MainConfiguration {
             Map<String, byte[]> staticMap = new HashMap<>();
 
             Map<String, Object> dependencies = new HashMap<>();
-            dependencies.put("setDataSource", dataSource);
-            dependencies.put("setMemDataSource", memDataSource);
-            dependencies.put("setTemplateMap", templateMap);
-            dependencies.put("setStaticMap", staticMap);
+            dependencies.put("dataSource", dataSource);
+            dependencies.put("authService", new AuthService(memDataSource));
+            dependencies.put("templateMap", templateMap);
+            dependencies.put("staticMap", staticMap);
             ControllerFactory cf = new ControllerFactory(dependencies);
 
             controllers = new HashMap<>();
 
             controllers.put("/files/.*",
-                    cf.getController(StaticController.class, "setPath", ""));
+                    cf.getController(StaticController.class));
 
             controllers.put("/favicon\\\\.ico\"",
-                    cf.getController(StaticController.class, "setPath", "favicon.ico"));
+                    cf.getController(StaticController.class, "resourcePath", "favicon.ico"));
 
             /* ***** */
 
             controllers.put("/",
-                    cf.getController(HomeRedirectCtrl.class, "setRedirectPaths", new String[]{"/expenses/list", "/login"}));
+                    cf.getController(HomeRedirectCtrl.class, "redirectPaths", new String[]{"/expenses/list", "/login"}));
 
             controllers.put("/login",
-                    cf.getController(StaticTemplateCtrl.class, "setPath", "login.vm"));
+                    cf.getController(StaticTemplateCtrl.class, "templatePath", "login.vm"));
 
             controllers.put("/login/validate",
-                    cf.getController(LoginFormCtrl.class, "setRedirectPath", "/expenses/list"));
+                    cf.getController(LoginFormCtrl.class, "redirectPath", "/expenses/list"));
 
             controllers.put("/logout",
-                    cf.getController(LogoutRedirectCtrl.class, "setRedirectPaths", new String[]{"/login"}));
+                    cf.getController(LogoutRedirectCtrl.class, "redirectPaths", new String[]{"/login"}));
 
             /* ***** */
 
             controllers.put("/expenses/list(.*)",
-                    cf.getController(ExpensesListTemplateCtrl.class, "setPath", "expenses_list.vm"));
+                    cf.getController(ExpensesListTemplateCtrl.class, "templatePath", "expenses_list.vm"));
 
             controllers.put("/expenses/new",
-                    cf.getController(ExpenseNewTemplateCtrl.class, "setPath", "expense.vm"));
+                    cf.getController(ExpenseNewTemplateCtrl.class, "templatePath", "expense.vm"));
 
             controllers.put("/expenses/update(.*)",
-                    cf.getController(ExpenseUpdateTemplateCtrl.class, "setPath", "expense.vm"));
+                    cf.getController(ExpenseUpdateTemplateCtrl.class, "templatePath", "expense.vm"));
 
             controllers.put("/expenses/save",
-                    cf.getController(ExpenseSaveFormCtrl.class, "setRedirectPath", "/expenses/list"));
+                    cf.getController(ExpenseSaveFormCtrl.class, "redirectPath", "/expenses/list"));
 
             controllers.put("/payments/new(.*)",
-                    cf.getController(PaymentNewTemplateCtrl.class, "setPath", "payment.vm"));
+                    cf.getController(PaymentNewTemplateCtrl.class, "templatePath", "payment.vm"));
 
             controllers.put("/payments/save",
-                    cf.getController(PaymentSaveFormCtrl.class, "setRedirectPath", "/expenses/list"));
+                    cf.getController(PaymentSaveFormCtrl.class, "redirectPath", "/expenses/list"));
 
             controllers.put("/payments/delete(.*)",
-                    cf.getController(PaymentDeleteRedirectCtrl.class, "setRedirectPaths", new String[]{"/expenses/list"}));
+                    cf.getController(PaymentDeleteRedirectCtrl.class, "redirectPaths", new String[]{"/expenses/list"}));
 
 
         } catch (Exception e) {

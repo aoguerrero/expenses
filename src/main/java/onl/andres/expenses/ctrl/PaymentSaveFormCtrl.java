@@ -13,11 +13,11 @@ import java.util.Map;
 public class PaymentSaveFormCtrl extends FormController {
 
     private DataSource dataSource;
-    private DataSource memDataSource;
+    private AuthService authService;
 
     @Override
     public void execute(HttpRequest request, Map<String, String> formData) {
-        AuthService authService = new AuthService(memDataSource);
+        authService.getUser(request);
         TPayment tPayment = new TPayment(dataSource);
         RPayment rPayment = new RPayment(
                 null,
@@ -31,7 +31,7 @@ public class PaymentSaveFormCtrl extends FormController {
         this.dataSource = dataSource;
     }
 
-    public void setMemDataSource(DataSource memDataSource) {
-        this.memDataSource = memDataSource;
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
     }
 }

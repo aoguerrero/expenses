@@ -21,8 +21,7 @@ import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 public class ExpensesListTemplateCtrl extends BaseTemplateCtrl {
 
     private DataSource dataSource;
-    private DataSource memDataSource;
-
+    private AuthService authService;
 
     @Override
     public Map<String, Object> getContext(HttpRequest request) {
@@ -33,7 +32,6 @@ public class ExpensesListTemplateCtrl extends BaseTemplateCtrl {
         final int month = urlParams.get("month") != null ? Integer.valueOf(urlParams.get("month")) : localDateTime.getMonthValue();
         final int year = urlParams.get("year") != null ? Integer.valueOf(urlParams.get("year")) : localDateTime.getYear();
 
-        AuthService authService = new AuthService(memDataSource);
         TExpensePayment tExpensePayment = new TExpensePayment(dataSource);
         RUser rUser = authService.getUser(request);
         LocalDateTime start = LocalDateTime.of(year, month, 1, 0, 0);
@@ -65,8 +63,7 @@ public class ExpensesListTemplateCtrl extends BaseTemplateCtrl {
         this.dataSource = dataSource;
     }
 
-    public void setMemDataSource(DataSource memDataSource) {
-        this.memDataSource = memDataSource;
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
     }
-
 }

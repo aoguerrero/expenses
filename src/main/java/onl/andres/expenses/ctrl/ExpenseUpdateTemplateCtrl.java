@@ -18,7 +18,7 @@ import java.util.Map;
 public class ExpenseUpdateTemplateCtrl extends BaseTemplateCtrl {
 
     private DataSource dataSource;
-    private DataSource memDataSource;
+    private AuthService authService;
 
     @Override
     public Map<String, Object> getContext(HttpRequest request) {
@@ -30,7 +30,6 @@ public class ExpenseUpdateTemplateCtrl extends BaseTemplateCtrl {
         }
         RExpense rExpense = tExpense.getById(Long.valueOf(expenseId)).orElseThrow(() -> new ServiceException.NotFound());
 
-        AuthService authService = new AuthService(memDataSource);
         RUser rUser = authService.getUser(request);
         if(!rExpense.nameUser().equals(rUser.name())) {
             throw new ServiceException.Unauthorized();
@@ -48,7 +47,7 @@ public class ExpenseUpdateTemplateCtrl extends BaseTemplateCtrl {
         this.dataSource = dataSource;
     }
 
-    public void setMemDataSource(DataSource memDataSource) {
-        this.memDataSource = memDataSource;
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
     }
 }

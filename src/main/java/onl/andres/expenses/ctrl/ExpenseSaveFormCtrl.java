@@ -14,11 +14,10 @@ import java.util.Map;
 public class ExpenseSaveFormCtrl extends FormController {
 
     private DataSource dataSource;
-    private DataSource memDataSource;
+    private AuthService authService;
 
     @Override
     public void execute(HttpRequest request, Map<String, String> formData) {
-        AuthService authService = new AuthService(memDataSource);
         TExpense tExpense = new TExpense(dataSource);
         Long id = formData.get("id") != null && !formData.get("id").isBlank() ? Long.valueOf(formData.get("id")) : null;
         LocalDateTime validTo = formData.get("valid_to") != null && !formData.get("valid_to").isBlank() ?
@@ -31,7 +30,7 @@ public class ExpenseSaveFormCtrl extends FormController {
                 Long.valueOf(formData.get("base_value")),
                 CustomFormatter.parseDate(formData.get("valid_from")),
                 validTo);
-        if(id == null) {
+        if (id == null) {
             tExpense.save(rExpense);
         } else {
             tExpense.update(rExpense);
@@ -42,7 +41,7 @@ public class ExpenseSaveFormCtrl extends FormController {
         this.dataSource = dataSource;
     }
 
-    public void setMemDataSource(DataSource memDataSource) {
-        this.memDataSource = memDataSource;
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
     }
 }
