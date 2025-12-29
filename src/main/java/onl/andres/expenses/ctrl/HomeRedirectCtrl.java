@@ -13,13 +13,13 @@ public class HomeRedirectCtrl extends RedirectController {
     private AuthService authService;
 
     @Override
-    public int execute(HttpRequest request) {
+    public String execute(HttpRequest request) {
         try {
             authService.getSessionId(request);
         } catch (ServiceException.Unauthorized seu) {
-            return 1;
+            return "/login";
         }
-        return 0;
+        return super.execute(request);
     }
 
     public void setAuthService(AuthService authService) {

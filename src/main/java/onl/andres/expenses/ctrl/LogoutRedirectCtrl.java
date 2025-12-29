@@ -7,8 +7,8 @@ import onl.andres.mvcly.ctrl.RedirectController;
 public class LogoutRedirectCtrl extends RedirectController {
 
     @Override
-    public int execute(HttpRequest request) {
+    public String execute(HttpRequest request) {
         AuthService.logout(getResponseHeaders());
-        return 0;
+        return super.execute(request);
     }
 }

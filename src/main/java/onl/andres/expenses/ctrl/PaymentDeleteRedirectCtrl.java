@@ -19,13 +19,13 @@ public class PaymentDeleteRedirectCtrl extends RedirectController {
     }
 
     @Override
-    public int execute(HttpRequest request) {
+    public String execute(HttpRequest request) {
         authService.getUser(request);
         TPayment tPayment = new TPayment(dataSource);
         Map<String, String> urlParams = HttpUtils.getUrlParams(request.uri());
         Long id = Long.valueOf(urlParams.get("paymentId"));
         tPayment.delete(id);
-        return 0;
+        return super.execute(request);
     }
 
     public void setAuthService(AuthService authService) {

@@ -66,7 +66,7 @@ public class MainConfiguration {
             /* ***** */
 
             controllers.put("/",
-                    cf.getController(HomeRedirectCtrl.class, "redirectPaths", new String[]{"/expenses/list", "/login"}));
+                    cf.getController(HomeRedirectCtrl.class, "redirectPath", "/expenses/list"));
 
             controllers.put("/login",
                     cf.getController(StaticTemplateCtrl.class, "templatePath", "login.vm"));
@@ -75,7 +75,7 @@ public class MainConfiguration {
                     cf.getController(LoginFormCtrl.class, "redirectPath", "/expenses/list"));
 
             controllers.put("/logout",
-                    cf.getController(LogoutRedirectCtrl.class, "redirectPaths", new String[]{"/login"}));
+                    cf.getController(LogoutRedirectCtrl.class, "redirectPath", "/login"));
 
             /* ***** */
 
@@ -98,7 +98,7 @@ public class MainConfiguration {
                     cf.getController(PaymentSaveFormCtrl.class, "redirectPath", "/expenses/list"));
 
             controllers.put("/payments/delete(.*)",
-                    cf.getController(PaymentDeleteRedirectCtrl.class, "redirectPaths", new String[]{"/expenses/list"}));
+                    cf.getController(PaymentDeleteRedirectCtrl.class, "redirectPath", "/expenses/list"));
 
 
         } catch (Exception e) {
